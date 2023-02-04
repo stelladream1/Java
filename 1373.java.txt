@@ -1,0 +1,28 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws IOException {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        String number = br.readLine();
+
+        if(number.length() % 3 == 1){
+            System.out.print(number.substring(0,1));
+        }
+        if(number.length() % 3 == 2){
+           System.out.print(Integer.parseInt(number.substring(0,1)) * 2 + Integer.parseInt(number.substring(1,2)));
+        }
+        for(int i = number.length() % 3; i< number.length(); i=i+3){
+            System.out.print(Integer.parseInt(number.substring(i,i+1)) * 4 + Integer.parseInt(number.substring(i+1,i+2) ) * 2 + Integer.parseInt(number.substring(i+2,i+3)));
+        }
+        System.out.println();
+    }
+
+
+
+}
+
+
