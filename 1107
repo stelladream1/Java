@@ -1,0 +1,49 @@
+import java.io.*;
+import java.util.Arrays;
+import java.util.Scanner;
+import java.util.StringTokenizer;
+
+public class Main {
+
+    public static boolean check(int n, boolean [] broken){
+        String channel = String.valueOf(n);
+        for(int i =0; i< channel.length(); i++){
+            int ch = channel.charAt(i) - '0';
+            if(broken[ch] == true ){
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    public static void main(String[] args) throws IOException {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int n = Integer.parseInt(br.readLine());
+        int b = Integer.parseInt(br.readLine());
+        if(b == 0){
+            int minValue = Math.abs(n-100);
+            minValue = Math.min(minValue, String.valueOf(n).length() );
+            System.out.println(minValue);
+            System.exit(0);
+        }
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        boolean [] broken = new boolean[10];
+
+        for(int i =0; i < b; i++){
+            broken[Integer.parseInt(st.nextToken())] = true;
+        }
+
+
+        int minValue  = Math.abs(n - 100);
+
+        for(int i =0; i<=1000000; i++){
+
+            if(check(i, broken) ){
+                minValue = Math.min(minValue,  Math.abs(n - i ) + String.valueOf(i).length()  );
+            }
+        }
+        System.out.println(minValue);
+    }
+}
