@@ -1,0 +1,60 @@
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class Main {
+
+    public static boolean nextPermutation(int [] a) {
+
+        int i = a.length-1;
+        while( i > 0 && a[i] <= a[i-1]){
+            i = i -1;
+        }
+
+        if(i <=0){
+            return false;
+        }
+        int j = a.length-1;
+
+        while(a[j] <= a[i-1]){
+            j=j-1;
+        }
+        int temp = a[j];
+        a[j] = a[i-1];
+        a[i-1] = temp;
+
+        j = a.length-1;
+        while(i <j){
+            temp = a[j];
+            a[j] = a[i];
+            a[i] = temp;
+            i++;
+            j--;
+        }
+        return true;
+    }
+
+    public static int sumA(int [] a){
+        int sum = 0;
+        for(int i=0; i<a.length-1;i++){
+            sum = sum + Math.abs(a[i] - a[i+1]);
+        }
+        return sum;
+    }
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int [] a = new int[n];
+        for(int i =0; i<n;i++){
+            a[i] = sc.nextInt();
+        }
+        Arrays.sort(a);
+        int maxResult = Integer.MIN_VALUE;
+        do{
+            int result = sumA(a);
+            maxResult = Math.max(result, maxResult);
+
+        }while(nextPermutation(a));
+        System.out.println(maxResult);
+    }
+}
