@@ -10,22 +10,21 @@ public class Main {
     static int [] dx = {0,0,-1,1};
     static int [] dy = {1,-1,0,0};
 
-    public static boolean dfs(int x, int y, int px, int py, char color){
+    public static boolean dfs(int x, int y, int count, char color){
         if(visited[x][y]){
-             return true;
-
+            if(count - dist[x][y] >= 4) return true;
+            else return false;
         }
         visited[x][y] = true;
- 
+        dist[x][y] = count;
 
         for(int i =0; i<4; i++){
             int nx = dx[i] + x;
             int ny = dy[i] + y;
 
             if(0<= nx && nx<n && 0<=ny && ny <m ) {
-                if(!( nx == px && ny == py))
                 if(graph[nx][ny]==color){
-                    if (dfs(nx, ny, x,y, color)) {
+                    if (dfs(nx, ny, count+1, color)) {
                         return true;
                     }
                 }
@@ -49,7 +48,7 @@ public class Main {
             for(int j =0; j<m ; j++){
                 if(!visited[i][j]){
                     dist = new int[n][m];
-                    boolean ok = dfs(i,j,-1,-1,graph[i][j]);
+                    boolean ok = dfs(i,j,1,graph[i][j]);
 
                     if(ok){
                         System.out.println("Yes");
